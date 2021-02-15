@@ -78,23 +78,26 @@ lStatus.place(relx=0.7,rely=0.60,anchor=CENTER)
 DeviceCanvas.place(relx=0.5,rely=0.6,anchor=CENTER)
 
 r.resizable(False, False)
-r.mainloop() 
+
+
 
 
 
 
 def connected():
     host="http://google.com"
-    r.after(2000,connected)
-    try:
-        if requests.get(host).ok:
-            print("You're Online")
-    except:
+    if requests.get(host).ok:
+        print("You're Online")
+    else:
         print("You're Offline")
-
+    
+    r.after(10000,connected)
 
 x = threading.Thread(target=connected,daemon=True)
 x.start()
+
+#r.after(10000,connected)
+r.mainloop() 
 
 
 
