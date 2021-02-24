@@ -7,8 +7,7 @@ from threading import Thread
 import nmap
 import socket
 from time import time, sleep
-
-
+import upkeepfunctions as func
 
 onlinestatus="N/A"
 
@@ -75,10 +74,6 @@ def TkGUI():
         lStatus.insert(1,"DOWN")
 
 
-    
-
-
-
     lStatus.configure(width=15,height=20,font=("MS Sans Serif",15))
     lStatus.place(relx=0.8,rely=0.60,anchor=CENTER)
 
@@ -87,57 +82,17 @@ def TkGUI():
     r.resizable(False, False)
 
 
-
-
-
-
-
     r.mainloop() 
 
-
-class Network(object):
-    def __init__(self):
-        ip="192.168.1.1"
-        self.ip = ip
-
-    def networkscanner(self):
-        if len(self.ip) == 0:
-            network = '192.168.1.1/24'
-        else:
-            network = self.ip +'/24'
-        
-        print("Scanning please wait ----->")
-
-        nm = nmap.PortScanner()
-        nm.scan(hosts=network,arguments='-sn')
-        hosts_list = [(x, nm[x]['status']['state']) for x in nm.all_hosts()]
-        for host, status in hosts_list:
-            print(socket.gethostbyaddr("192.168.1.90"))
-            print("Host\t{}".format(host))
-
-        TkGUI()
-
-
-
 if __name__=="__main__":
-    D = Network()
-    D.networkscanner()
+    func.networkscan
+
 
 
 
 
 #probably implement this into network scan for scan & onlinecheck every n seconds.
-def connected():
-    host="http://google.com"
-    if requests.get(host).ok:
-        print("You're Online")
-        onlinestatus=True
-    else:
-        print("You're Offline")
-        onlinestatus=False
-    while True:
-        sleep(1 - time() % 1)
-        connected()
 
-x = threading.Thread(target=connected,daemon=True)
-x.start()
+
+#x = threading.Thread(target=connected,daemon=True)
+#x.start()
