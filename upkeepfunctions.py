@@ -1,6 +1,6 @@
 import Upkeepmonitoring as GUI
 import tkinter as tk
-from tkinter import *
+#from tkinter import *
 from tkinter import messagebox
 import requests
 import threading
@@ -23,10 +23,10 @@ def connected():
         try:
             requests.get(host).ok
             print("You're Online")
-            onlinestatus=True
+            #onlinestatus=True
         except:
             print("You're Offline")
-            onlinestatus=False
+            #onlinestatus=False
     
 
 

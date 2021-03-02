@@ -1,6 +1,12 @@
+#-----------------------------------#
+#Created by Sorén Sadegi            #
+#-----------------------------------#
+#This file is for everything that is GUI related, other functions will be in upkeepfunctions.py file.
+#-----------------------------------#
+
+
 import tkinter as tk
-from tkinter import *
-from tkinter import messagebox
+from tkinter import Button,Listbox,CENTER,RAISED,NW,W,END,messagebox
 import requests
 import threading
 from threading import Thread
@@ -8,6 +14,8 @@ import nmap
 import socket
 from time import time, sleep
 import upkeepfunctions as func
+
+
 
 
 listAdded = list()
@@ -39,16 +47,16 @@ def TkGUI():
     #------------------------------------------------------------------#
     button1 = Button(r, text = "Devices",command=r.quit, anchor = W,bg="white")
     button1.configure(width =12,font=("MS Sans Serif",20),relief=RAISED,borderwidth=5)
-    button1_window = DeviceCanvas.create_window(1, 0, anchor=NW, window=button1)
+    DeviceCanvas.create_window(1, 0, anchor=NW, window=button1)
 
     #------------------------------------------------------------------#
     button2 = Button(r, text = "IP Address", anchor = W,bg="white")
     button2.configure(width =12,font=("MS Sans Serif",20),relief=RAISED,borderwidth=5)
-    button2_window = DeviceCanvas.create_window(300, 0, anchor=NW, window=button2)
+    DeviceCanvas.create_window(300, 0, anchor=NW, window=button2)
     #------------------------------------------------------------------#
     button3 = Button(r, text = "Status", anchor = W,bg="white")
     button3.configure(width =10,font=("MS Sans Serif",20),relief=RAISED,borderwidth=5)
-    button3_window = DeviceCanvas.create_window(800, 0, anchor=NW, window=button3)
+    DeviceCanvas.create_window(800, 0, anchor=NW, window=button3)
     #------------------------------------------------------------------#
     #List Devices, Should be able to add dynamically with  lD.insert(DeviceNr,"NameOfDevice") or something like that.
 
