@@ -9,16 +9,22 @@ import socket
 from time import time, sleep
 import upkeepfunctions as func
 
+
+listAdded = list()
 onlinestatus="N/A"
 
 
+
 def TkGUI():
-    r = tk.Tk() 
+    from upkeepfunctions import listHosts,listIps
+    global r
+    r = tk.Tk()
     r.title('Upkeepmonitor') 
     r.geometry("1280x960")
     r.configure(bg="#023562")
     r.iconbitmap("icon.ico")
     NameOfNetwork="NETWORKNAME"
+
     #Width and height to be adjusted based on networkname that the program finds
     networkname = tk.Text(r,width=len(NameOfNetwork),height=1,fg="white",bg="#626262")
     networkname.config(font=("Courier",30)) #Set font & size of text.
@@ -45,54 +51,59 @@ def TkGUI():
     button3_window = DeviceCanvas.create_window(800, 0, anchor=NW, window=button3)
     #------------------------------------------------------------------#
     #List Devices, Should be able to add dynamically with  lD.insert(DeviceNr,"NameOfDevice") or something like that.
-    lD = Listbox(r)
-    lD.insert(1,"Soren PC")
-    lD.insert(2,"Duh")
-    lD.insert(3,"Soren dsadsadsadsdsadPC")
-    lD.insert(4,"Soren PC")
 
-    lD.configure(width=15,height=20,font=("MS Sans Serif",15))
+    global lD
+    lD = Listbox(r)
+    lD.configure(width=15,height=10,font=("MS Sans Serif",15))
     lD.place(relx=0.18,rely=0.60,anchor=CENTER)
+
 
     #------------------------------------------------------------------#
     #When it adds device it will also insert the IP for the device, (lIP.insert(DeviceNr,"IP"))
+    global lIP
     lIP = Listbox(r)
 
-    lIP.insert(1,"192.168.0.1")
-    lIP.insert(2,"192.168.1.1")
-    lIP.insert(3,"127.0.0.1")
-    lIP.insert(4,"10.0.0.1")
-
-    lIP.configure(width=45,height=20,font=("MS Sans Serif",15))
+    lIP.configure(width=45,height=10,font=("MS Sans Serif",15))
     lIP.place(relx=0.5,rely=0.60,anchor=CENTER)
     #------------------------------------------------------------------#
-
+    global lStatus
     lStatus = Listbox(r)
-    if (onlinestatus==True):
-        lStatus.insert(1,"UP")
-    else:
-        lStatus.insert(1,"DOWN")
-
-
-    lStatus.configure(width=15,height=20,font=("MS Sans Serif",15))
+    lStatus.configure(width=15,height=10,font=("MS Sans Serif",15))
     lStatus.place(relx=0.8,rely=0.60,anchor=CENTER)
 
     DeviceCanvas.place(relx=0.5,rely=0.6,anchor=CENTER)
 
     r.resizable(False, False)
-
-
     r.mainloop() 
 
+
+
+def listBoxAdd():
+    from upkeepfunctions import listHosts,listIps
+    HostCount=1
+    IpCount=1
+    StatusCount=1
+    for host in listHosts:
+        if host not in listAdded:
+                lD.insert(HostCount,host)
+                HostCount+=1
+                listAdded.append(host)
+    for ip in listIps:
+        if ip not in listAdded:
+            lIP.insert(IpCount,ip)
+            IpCount +=1
+            listAdded.append(ip)
+    lStatus.delete(0,END)
+    for host in listHosts:
+        if host in listHosts:
+            lStatus.insert(StatusCount,"Reachable")
+
+        else: #host in listAdded and host not in listHosts:
+            lStatus.insert(StatusCount,"Not Reachable")
+
+
 if __name__=="__main__":
-    func.networkscan
+    func.mainProgram()
 
 
-
-
-
-#probably implement this into network scan for scan & onlinecheck every n seconds.
-
-
-#x = threading.Thread(target=connected,daemon=True)
-#x.start()
+list = [["ROUTER","IP","STATUS"],["TELEFON","IP","STATUS"]]
