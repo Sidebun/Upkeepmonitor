@@ -4,21 +4,22 @@
 #This file is for everything that is GUI related, other functions will be in upkeepfunctions.py file.
 #-----------------------------------#
 
-
+import nmap
 import tkinter as tk
 from tkinter import Button,Listbox,CENTER,RAISED,NW,W,END,messagebox
 import requests
 import threading
 from threading import Thread
-import nmap
 import socket
 from time import time, sleep
 import upkeepfunctions as func
+import dbUpkeepMonitor as db
 
 
 
 
-listAdded = list()
+listAddedHosts = list()
+listAddedIps = list()
 onlinestatus="N/A"
 
 
@@ -30,7 +31,7 @@ def TkGUI():
     r.title('Upkeepmonitor') 
     r.geometry("1280x960")
     r.configure(bg="#023562")
-    r.iconbitmap("icon.ico")
+    #r.iconbitmap("icon.ico")
     NameOfNetwork="NETWORKNAME"
 
     #Width and height to be adjusted based on networkname that the program finds
@@ -92,26 +93,22 @@ def listBoxAdd():
     IpCount=1
     StatusCount=1
     for host in listHosts:
-        if host not in listAdded:
+        if host not in listAddedHosts:
                 lD.insert(HostCount,host)
                 HostCount+=1
-                listAdded.append(host)
+                listAddedHosts.append(host)
     for ip in listIps:
-        if ip not in listAdded:
+        if ip not in listAddedIps:
             lIP.insert(IpCount,ip)
             IpCount +=1
-            listAdded.append(ip)
+            listAddedIps.append(ip)
     lStatus.delete(0,END)
-    for host in listHosts:
+    for host in listAddedHosts:
         if host in listHosts:
             lStatus.insert(StatusCount,"Reachable")
-
         else: #host in listAdded and host not in listHosts:
             lStatus.insert(StatusCount,"Not Reachable")
 
 
 if __name__=="__main__":
     func.mainProgram()
-
-
-list = [["ROUTER","IP","STATUS"],["TELEFON","IP","STATUS"]]

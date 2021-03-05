@@ -31,7 +31,7 @@ def connected():
 
 
 def networkscan():
-    from Upkeepmonitoring import listAdded
+    from Upkeepmonitoring import listAddedHosts
     while True:
         global listHosts
         global listIps
@@ -56,21 +56,26 @@ def networkscan():
         print("All hosts found.")
         
         for host in current_hosts:
-            if host not in listAdded:
+            if host not in listAddedHosts:
                     GUI.listBoxAdd()
         listHosts = []
         listIps = []
-        
+
 
 
 
 def loggingfunc():
+    from Upkeepmonitoring import listAddedHosts
     #lägg till om reachable eller inte
     #uptime = hur länge det vart anslutet
     while True:
         sleep(5)
-        for host in listHosts:
+        for host in listAddedHosts:
             print(datetime.now(), host)
+
+
+#def uptimedowntime():
+
 
 
 def mainProgram():
