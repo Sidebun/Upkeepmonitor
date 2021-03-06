@@ -2,7 +2,7 @@ import Upkeepmonitoring as GUI
 import tkinter as tk
 #from tkinter import *
 from tkinter import messagebox
-import requests
+#import requests
 import threading
 from threading import Thread
 import nmap
@@ -19,7 +19,7 @@ onlinestatus=False
 def connected():
     host="http://google.com"
     while True:
-        sleep(2)
+        sleep(3)
         try:
             requests.get(host).ok
             print("You're Online")
@@ -81,8 +81,8 @@ def loggingfunc():
 def mainProgram():
     tn = threading.Thread(target=networkscan,daemon=True)
     tn.start()
-    x = threading.Thread(target=connected,daemon=True)
-    x.start()
+    #x = threading.Thread(target=connected,daemon=True)
+    #x.start()
     t1 = threading.Thread(target=loggingfunc,daemon=True)
     t1.start()
     GUI.TkGUI()

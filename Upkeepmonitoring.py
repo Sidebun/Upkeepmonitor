@@ -7,7 +7,7 @@
 import nmap
 import tkinter as tk
 from tkinter import Button,Listbox,CENTER,RAISED,NW,W,END,messagebox
-import requests
+#import requests
 import threading
 from threading import Thread
 import socket
