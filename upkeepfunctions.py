@@ -43,14 +43,18 @@ def networkscan():
         nm = nmap.PortScanner()
         nm.scan(hosts=network,arguments='-sn')
         current_hosts = nm.all_hosts() # Current_hosts alltid uppdaterad med om hosts försvinner eller inte
-        
+        #print(current_hosts)
         
 
         for IP in current_hosts:
             if (IP != ownDeviceIP and IP not in listIps):
-                if socket.gethostbyaddr(IP)[0] not in listHosts:
-                    listHosts.append(socket.gethostbyaddr(IP)[0]) #Denna#########
-                listIps.append(IP)
+                try:
+                    if socket.gethostbyaddr(IP)[0] not in listHosts:
+                        listHosts.append(socket.gethostbyaddr(IP)[0]) #Denna#########
+                        listIps.append(IP)
+                except socket.herror:
+                    return print("error")
+                        
         print(listHosts)
         print(listIps)
         print("All hosts found.")
