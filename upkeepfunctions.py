@@ -1,14 +1,14 @@
 import Upkeepmonitoring as GUI
 import tkinter as tk
-#from tkinter import *
 from tkinter import messagebox
-#import requests
+import requests
 import threading
 from threading import Thread
 import nmap
 import socket
 from time import time, sleep
 from datetime import datetime,date
+
 
 
 listHosts = list()
@@ -19,7 +19,7 @@ onlinestatus=False
 def connected():
     host="http://google.com"
     while True:
-        sleep(3)
+        sleep(10)
         try:
             requests.get(host).ok
             print("You're Online")
@@ -35,33 +35,26 @@ def networkscan():
     while True:
         global listHosts
         global listIps
-        sleep(2)
-        print("Starting scan of network.")
+        global current_hostsIP
+        print("SCANNING")
         network='192.168.1.*'
         hostname = socket.gethostname()
         ownDeviceIP = socket.gethostbyname(hostname)
         nm = nmap.PortScanner()
         nm.scan(hosts=network,arguments='-sn')
-        current_hosts = nm.all_hosts() # Current_hosts alltid uppdaterad med om hosts försvinner eller inte
-        #print(current_hosts)
-        
-
-        for IP in current_hosts:
+        current_hostsIP = nm.all_hosts() # current_hostsIP alltid uppdaterad med om hosts försvinner eller inte
+        for IP in current_hostsIP:
             if (IP != ownDeviceIP and IP not in listIps):
-                try:
-                    if socket.gethostbyaddr(IP)[0] not in listHosts:
-                        listHosts.append(socket.gethostbyaddr(IP)[0]) #Denna#########
-                        listIps.append(IP)
-                except socket.herror:
-                    return print("error")
-                        
-        print(listHosts)
-        print(listIps)
-        print("All hosts found.")
+                if socket.gethostbyaddr(IP)[0] not in listHosts:
+                    listHosts.append(socket.gethostbyaddr(IP)[0])
+                    listIps.append(IP)
         
-        for host in current_hosts:
+        for host in current_hostsIP:
             if host not in listAddedHosts:
                     GUI.listBoxAdd()
+        
+        loggingfunc()
+
         listHosts = []
         listIps = []
 
@@ -69,24 +62,28 @@ def networkscan():
 
 
 def loggingfunc():
+    import dbUpkeepMonitor as db
     from Upkeepmonitoring import listAddedHosts
-    #lägg till om reachable eller inte
-    #uptime = hur länge det vart anslutet
-    while True:
-        sleep(5)
-        for host in listAddedHosts:
-            print(datetime.now(), host)
+    for host in listAddedHosts:
+        try:
+            ipdb = socket.gethostbyname(host)
+        except:
+            print("Error finding IP of", host,)
+        if host not in listHosts:
+            hoststatus = "Not Reachable"
+        elif host in listHosts:
+            hoststatus = "Reachable"
+        db.table_insert(host,ipdb,hoststatus)
+            
 
-
-#def uptimedowntime():
 
 
 
 def mainProgram():
-    tn = threading.Thread(target=networkscan,daemon=True)
-    tn.start()
-    #x = threading.Thread(target=connected,daemon=True)
-    #x.start()
-    t1 = threading.Thread(target=loggingfunc,daemon=True)
-    t1.start()
+    threadScan = threading.Thread(target=networkscan,daemon=True)
+    threadScan.start()
+    threadConnection = threading.Thread(target=connected,daemon=True)
+    threadConnection.start()
+    #t1 = threading.Thread(target=loggingfunc,daemon=True)
+    #t1.start()
     GUI.TkGUI()

@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import time
 from datetime import datetime,date
+import socket
 
 
 def create_connection(db_file):
@@ -14,23 +15,27 @@ def create_connection(db_file):
         print(e)
     return conn
 
-def table_insert(hostname,ip):
-    date = datetime.now()
+def table_insert(hostname,ip,hoststatus):
+    timestamp = datetime.now()
+    name = hostname
+    ipaddress = ip
+    status = hoststatus
+
     conn = create_connection("db.db")
     c = conn.cursor()
-
+    print(hostname,ip,date,status)
 #create table
     c.execute('''CREATE TABLE IF NOT EXISTS networklog
-             ( name text, ipaddress text, date text)''')
+             (name text, ipaddress text, timestamp text, status text)''')
 
-    c.execute('''INSERT INTO networklog
-             VALUES('hostname', 'ip', 'date')''')
-    print(c.lastrowid)
+    c.execute("INSERT INTO networklog values (?,?,?,?)",
+                (name,ipaddress,timestamp,status))
+    
 			 
 #commit the changes to db			
     conn.commit()
 #close the connection
     conn.close()
 
-table_insert("XD","192.168.1.1")
+########table_insert("XD","192.168.1.1")
 

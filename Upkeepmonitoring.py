@@ -7,7 +7,7 @@
 import nmap
 import tkinter as tk
 from tkinter import Button,Listbox,CENTER,RAISED,NW,W,END,messagebox
-#import requests
+import requests
 import threading
 from threading import Thread
 import socket
@@ -46,7 +46,7 @@ def TkGUI():
     DeviceCanvas = tk.Canvas(r, width=1000,height=650, bg="#626262")
 
     #------------------------------------------------------------------#
-    button1 = Button(r, text = "Devices",command=r.quit, anchor = W,bg="white")
+    button1 = Button(r, text = "Devices", anchor = W,bg="white")
     button1.configure(width =12,font=("MS Sans Serif",20),relief=RAISED,borderwidth=5)
     DeviceCanvas.create_window(1, 0, anchor=NW, window=button1)
 
@@ -106,7 +106,7 @@ def listBoxAdd():
     for host in listAddedHosts:
         if host in listHosts:
             lStatus.insert(StatusCount,"Reachable")
-        else: #host in listAdded and host not in listHosts:
+        elif host not in listHosts: #host in listAdded and host not in listHosts:
             lStatus.insert(StatusCount,"Not Reachable")
 
 
