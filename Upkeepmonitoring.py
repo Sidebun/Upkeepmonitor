@@ -6,7 +6,7 @@
 
 import nmap
 import tkinter as tk
-from tkinter import Button,Listbox,CENTER,RAISED,NW,W,END,messagebox
+from tkinter import Button,Listbox,CENTER,RAISED,NW,W,END,messagebox,BOTTOM
 import requests
 import threading
 from threading import Thread
@@ -14,6 +14,7 @@ import socket
 from time import time, sleep
 import upkeepfunctions as func
 import dbUpkeepMonitor as db
+from tkinter import simpledialog
 
 
 
@@ -21,6 +22,7 @@ import dbUpkeepMonitor as db
 listAddedHosts = list()
 listAddedIps = list()
 onlinestatus="N/A"
+networkGateway = "N/A"
 
 
 
@@ -32,7 +34,7 @@ def TkGUI():
     r.geometry("1280x960")
     r.configure(bg="#023562")
     #r.iconbitmap("icon.ico")
-    NameOfNetwork="NETWORKNAME"
+    NameOfNetwork="Upkeepmonitor"
 
     #Width and height to be adjusted based on networkname that the program finds
     networkname = tk.Text(r,width=len(NameOfNetwork),height=1,fg="white",bg="#626262")
@@ -41,6 +43,14 @@ def TkGUI():
     networkname.insert(tk.END,NameOfNetwork) #Insert the text "NameOfNetwork"
 
     networkname.config(state='disabled') #Disable input/editing of networkname text.
+    #------------------------------------------------------------------#
+
+
+
+
+
+
+
     #------------------------------------------------------------------#
     #Devices will be shown here with all information for it.
     DeviceCanvas = tk.Canvas(r, width=1000,height=650, bg="#626262")
@@ -106,9 +116,19 @@ def listBoxAdd():
     for host in listAddedHosts:
         if host in listHosts:
             lStatus.insert(StatusCount,"Reachable")
-        elif host not in listHosts: #host in listAdded and host not in listHosts:
+        elif host not in listHosts:
             lStatus.insert(StatusCount,"Not Reachable")
 
+
+def networkStatusBox(onlinestatus):
+    networkstatus = tk.Text(r,width=15,height=1,fg="white",bg="#023562")
+    networkstatus.config(font=("Courier",30)) #Set font & size of text.
+    networkstatus.place(relx=0.5,rely=0.2,anchor=CENTER) #Set position relative to screen.
+    networkstatus.tag_remove(0,END)
+    if onlinestatus == 1:
+        networkstatus.insert(tk.END,"You're Online")
+    elif onlinestatus == 0:
+        networkstatus.insert(tk.END,"You're Offline")
 
 if __name__=="__main__":
     func.mainProgram()

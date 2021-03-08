@@ -1,6 +1,6 @@
 import Upkeepmonitoring as GUI
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 import requests
 import threading
 from threading import Thread
@@ -19,25 +19,39 @@ onlinestatus=False
 def connected():
     host="http://google.com"
     while True:
-        sleep(10)
+        sleep(1)
         try:
             requests.get(host).ok
             print("You're Online")
-            #onlinestatus=True
+            onlinestatus=True
+            GUI.networkStatusBox(onlinestatus)
         except:
             print("You're Offline")
-            #onlinestatus=False
+            onlinestatus=False
+            GUI.networkStatusBox(onlinestatus)
     
 
 
 def networkscan():
     from Upkeepmonitoring import listAddedHosts
-    while True:
+    root = tk.Tk()
+    root.withdraw()
+    # the input dialog
+    USER_INP = simpledialog.askstring(title="Upkeepmonitor",prompt="What's your default gateway? Example : 192.168.1.1")
+
+
+    if USER_INP == "":
+        sleep(3)
+        networkscan()
+
+    while USER_INP != "":
         global listHosts
         global listIps
         global current_hostsIP
+        USER_INP = USER_INP[:-1] + "*"
+        networkGateway = USER_INP
         print("SCANNING")
-        network='192.168.1.*'
+        network=networkGateway
         hostname = socket.gethostname()
         ownDeviceIP = socket.gethostbyname(hostname)
         nm = nmap.PortScanner()
@@ -84,6 +98,4 @@ def mainProgram():
     threadScan.start()
     threadConnection = threading.Thread(target=connected,daemon=True)
     threadConnection.start()
-    #t1 = threading.Thread(target=loggingfunc,daemon=True)
-    #t1.start()
     GUI.TkGUI()
