@@ -21,7 +21,7 @@ from tkinter import simpledialog
 
 listAddedHosts = list()
 listAddedIps = list()
-onlinestatus="N/A"
+listAddedHostsMac = list()
 networkGateway = "N/A"
 
 
@@ -34,23 +34,15 @@ def TkGUI():
     r.geometry("1280x960")
     r.configure(bg="#023562")
     #r.iconbitmap("icon.ico")
-    NameOfNetwork="Upkeepmonitor"
+    ProgramName="Upkeepmonitor"
 
     #Width and height to be adjusted based on networkname that the program finds
-    networkname = tk.Text(r,width=len(NameOfNetwork),height=1,fg="white",bg="#626262")
+    networkname = tk.Text(r,width=len(ProgramName),height=1,fg="white",bg="#626262")
     networkname.config(font=("Courier",30)) #Set font & size of text.
     networkname.place(relx=0.5,rely=0.1,anchor=CENTER) #Set position relative to screen.
-    networkname.insert(tk.END,NameOfNetwork) #Insert the text "NameOfNetwork"
+    networkname.insert(tk.END,ProgramName) #Insert the text "ProgramName"
 
     networkname.config(state='disabled') #Disable input/editing of networkname text.
-    #------------------------------------------------------------------#
-
-
-
-
-
-
-
     #------------------------------------------------------------------#
     #Devices will be shown here with all information for it.
     DeviceCanvas = tk.Canvas(r, width=1000,height=650, bg="#626262")
@@ -98,30 +90,51 @@ def TkGUI():
 
 
 def listBoxAdd():
-    from upkeepfunctions import listHosts,listIps
+    from upkeepfunctions import listHosts,listIps,connected,listHostsMacs,current_hostsIP, onlinestatus
     HostCount=1
     IpCount=1
     StatusCount=1
-    for host in listHosts:
-        if host not in listAddedHosts:
-                lD.insert(HostCount,host)
-                HostCount+=1
-                listAddedHosts.append(host)
-    for ip in listIps:
-        if ip not in listAddedIps:
-            lIP.insert(IpCount,ip)
-            IpCount +=1
-            listAddedIps.append(ip)
-    lStatus.delete(0,END)
-    for host in listAddedHosts:
-        if host in listHosts:
-            lStatus.insert(StatusCount,"Reachable")
-        elif host not in listHosts:
-            lStatus.insert(StatusCount,"Not Reachable")
+    macCount=1
 
+
+    if onlinestatus == True:
+        for host in listHosts:
+            lD.insert(HostCount,host)
+            HostCount+=1
+            if host not in listAddedHosts:
+                listAddedHosts.append(host)
+    if onlinestatus == False:
+        for mac in listHostsMacs:
+            if mac not in listAddedHostsMac:
+                lD.insert(HostCount,mac)
+                macCount+=1
+                listAddedHostsMac.append(mac)
+    for ip in listIps:
+        lIP.insert(IpCount,ip)
+        IpCount +=1
+        if ip not in listAddedIps:
+            listAddedIps.append(ip)
+
+
+    if onlinestatus== True:
+        lStatus.delete(0,END)
+        for host in listHosts:
+            if host in listHosts:
+                lStatus.insert(StatusCount,"Reachable")
+            elif host not in listHosts:
+                lStatus.insert(StatusCount,"Not Reachable")
+    
+    elif onlinestatus==False:
+        lStatus.delete(0,END)
+        for mac in listAddedHostsMac:
+            if mac in listHostsMacs:
+                lStatus.insert(StatusCount,"Reachable")
+            elif mac not in listHostsMacs:
+                lStatus.insert(StatusCount,"Not Reachable")
 
 def networkStatusBox(onlinestatus):
-    networkstatus = tk.Text(r,width=15,height=1,fg="white",bg="#023562")
+    from upkeepfunctions import connected
+    networkstatus = tk.Text(r,width=15,height=1,fg="white",bg="black")
     networkstatus.config(font=("Courier",30)) #Set font & size of text.
     networkstatus.place(relx=0.5,rely=0.2,anchor=CENTER) #Set position relative to screen.
     networkstatus.tag_remove(0,END)
@@ -129,6 +142,6 @@ def networkStatusBox(onlinestatus):
         networkstatus.insert(tk.END,"You're Online")
     elif onlinestatus == 0:
         networkstatus.insert(tk.END,"You're Offline")
-
+    
 if __name__=="__main__":
     func.mainProgram()
