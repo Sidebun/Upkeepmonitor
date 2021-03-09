@@ -4,6 +4,7 @@
 #This file is for everything that is GUI related, other functions will be in upkeepfunctions.py file.
 #-----------------------------------#
 
+global USER_INP
 import nmap
 import tkinter as tk
 from tkinter import Button,Listbox,CENTER,RAISED,NW,W,END,messagebox,BOTTOM
@@ -62,6 +63,12 @@ def TkGUI():
     DeviceCanvas.create_window(800, 0, anchor=NW, window=button3)
     #------------------------------------------------------------------#
     #List Devices, Should be able to add dynamically with  lD.insert(DeviceNr,"NameOfDevice") or something like that.
+    button4 = Button(r, text = "Quit", anchor = W,bg="red",command=r.quit)
+    button4.configure(width =10,font=("MS Sans Serif",20),relief=RAISED,borderwidth=5)
+    DeviceCanvas.create_window(800, 550, anchor=NW, window=button4)
+
+
+
 
     global lD
     lD = Listbox(r)
@@ -99,9 +106,9 @@ def listBoxAdd():
 
     if onlinestatus == True:
         for host in listHosts:
-            lD.insert(HostCount,host)
-            HostCount+=1
             if host not in listAddedHosts:
+                lD.insert(HostCount,host)
+                HostCount+=1
                 listAddedHosts.append(host)
     if onlinestatus == False:
         for mac in listHostsMacs:
@@ -109,6 +116,7 @@ def listBoxAdd():
                 lD.insert(HostCount,mac)
                 macCount+=1
                 listAddedHostsMac.append(mac)
+    lIP.delete(0,END)
     for ip in listIps:
         lIP.insert(IpCount,ip)
         IpCount +=1
@@ -116,21 +124,15 @@ def listBoxAdd():
             listAddedIps.append(ip)
 
 
-    if onlinestatus== True:
-        lStatus.delete(0,END)
-        for host in listHosts:
-            if host in listHosts:
-                lStatus.insert(StatusCount,"Reachable")
-            elif host not in listHosts:
-                lStatus.insert(StatusCount,"Not Reachable")
-    
-    elif onlinestatus==False:
-        lStatus.delete(0,END)
-        for mac in listAddedHostsMac:
-            if mac in listHostsMacs:
-                lStatus.insert(StatusCount,"Reachable")
-            elif mac not in listHostsMacs:
-                lStatus.insert(StatusCount,"Not Reachable")
+    lStatus.delete(0,END)
+    for host in listHosts:
+        if host in listHosts:
+            lStatus.insert(StatusCount,"Reachable")
+        elif host not in listHosts:
+            lStatus.insert(StatusCount,"Not Reachable")
+ 
+ 
+ 
 
 def networkStatusBox(onlinestatus):
     from upkeepfunctions import connected

@@ -6,3 +6,4 @@ First install pip with : sudo apt update
 python-nmap: pip3 install python-nmap
 nmap: sudo apt-get install nmap
 Tkinter: sudo apt-get install python-tk
+Pandas: pip install pandas
