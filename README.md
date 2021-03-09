@@ -1,7 +1,7 @@
 # Upkeepmonitor
 Student project to monitor network downtime within a network.
 
-##Programdescription:
+## Programdescription:
 This Upkeepmonitor will be scanning your local network and look for any new hosts and if any hosts have been disconnected that have been connected.
 It is writing to an sqlite3 database and will log the Hostname,IP,status (Reachable or not reachable),timestamp. It is also writing the same things to an csv file.
 
