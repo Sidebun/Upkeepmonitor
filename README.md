@@ -10,7 +10,7 @@ The project itself is made to constantly monitor the network and easily have a l
 Sometimes the IP might get marked as "Unknown" since the unit that its trying to look up the ip from might reject the reverse dns lookup, this is normal since some routers or units have a built in protection.
 
 
-##Installation:
+## Installation:
 
 First install pip with : sudo apt update
 			 sudo apt install python3-pip
