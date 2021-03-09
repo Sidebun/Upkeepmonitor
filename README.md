@@ -1,4 +1,4 @@
-# Upkeepmonitor
+# Upkeepmonitor (UBUNTU)
 Student project to monitor network downtime within a network.
 
 ## Programdescription:
@@ -11,6 +11,9 @@ Sometimes the IP might get marked as "Unknown" since the unit that its trying to
 
 It will prompt you for your network gateway when you start the program and it will then begin to scan the network.
 
+
+#### This project mainly runs on Ubuntu (confirmed to be working with Ubuntu20.04) however the python code in this repository will run on Windows aswell.
+
 ## Installation:
 
 First install pip with : sudo apt update
@@ -21,7 +24,7 @@ nmap: sudo apt-get install nmap
 Tkinter: sudo apt-get install python-tk
 getmac: pip install getmac
 
-### How to run it: (UBUNTU)
+### How to run it:
 First make sure to have all the installed packages, those are listed above in the installation section.
 It can easily be run through the terminal:
 Right click the folder where the "Upkeepmonitoring" file is downloaded and choose "Open in Terminal"
