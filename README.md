@@ -9,6 +9,7 @@ The project itself is made to constantly monitor the network and easily have a l
 
 Sometimes the IP might get marked as "Unknown" since the unit that its trying to look up the ip from might reject the reverse dns lookup, this is normal since some routers or units have a built in protection.
 
+It will prompt you for your network gateway when you start the program and it will then begin to scan the network.
 
 ## Installation:
 
@@ -19,6 +20,15 @@ python-nmap: pip3 install python-nmap
 nmap: sudo apt-get install nmap
 Tkinter: sudo apt-get install python-tk
 getmac: pip install getmac
+
+### How to run it: (UBUNTU)
+First make sure to have all the installed packages, those are listed above in the installation section.
+It can easily be run through the terminal:
+Right click the folder where the "Upkeepmonitoring" file is downloaded and choose "Open in Terminal"
+When in terminal type "sudo ./Upkeepmonitoring"
+
+This will open the prompt for your network gateway, as soon as you enter the gateway the main program will open and run.
+
 
 
 
