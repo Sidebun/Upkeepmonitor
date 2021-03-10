@@ -19,6 +19,8 @@ listIps = list()
 hoststatus = "N/A"
 
 def mainProgram():
+    ROOT = tk.Tk()
+    ROOT.withdraw()
     USER_INP = simpledialog.askstring(title="Upkeepmonitor",prompt="What's your default gateway? Example : 192.168.1.1")
     USER_INP = USER_INP[:-1] + "*"
     global networkGateway
@@ -47,14 +49,11 @@ def connected():
 
 def networkscan():
     from Upkeepmonitoring import listAddedHosts
-    # the input dialog
-
-    #USER_INP = simpledialog.askstring(title="Upkeepmonitor",prompt="What's your default gateway? Example : 192.168.1.1")
     global listHosts
     global listIps
     global current_hostsIP
     while True:
-        sleep(5) # Scan every 5 seconds.
+        sleep(5)
         connected()
         print("SCANNING")
         network=networkGateway
@@ -91,7 +90,7 @@ def networkscan():
 
 
 
-def loggingfunc(): # logs every scan
+def loggingfunc():
     import dbUpkeepMonitor as db
     from Upkeepmonitoring import listAddedHosts
     for host in listAddedHosts:

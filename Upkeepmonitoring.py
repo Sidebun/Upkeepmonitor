@@ -34,20 +34,17 @@ def TkGUI():
     r.title('Upkeepmonitor') 
     r.geometry("1280x960")
     r.configure(bg="#023562")
-    #r.iconbitmap("icon.ico")
+    #r.iconbitmap("icon.ico") Disabled since linux has no support for this.
     ProgramName="Upkeepmonitor"
-
-    #Width and height to be adjusted based on networkname that the program finds
+    #------------------------------------------------------------------#
     networkname = tk.Text(r,width=len(ProgramName),height=1,fg="white",bg="#626262")
     networkname.config(font=("Courier",30)) #Set font & size of text.
     networkname.place(relx=0.5,rely=0.1,anchor=CENTER) #Set position relative to screen.
     networkname.insert(tk.END,ProgramName) #Insert the text "ProgramName"
-
     networkname.config(state='disabled') #Disable input/editing of networkname text.
     #------------------------------------------------------------------#
     #Devices will be shown here with all information for it.
     DeviceCanvas = tk.Canvas(r, width=1000,height=650, bg="#626262")
-
     #------------------------------------------------------------------#
     button1 = Button(r, text = "Devices", anchor = W,bg="white")
     button1.configure(width =12,font=("MS Sans Serif",20),relief=RAISED,borderwidth=5)
@@ -62,26 +59,18 @@ def TkGUI():
     button3.configure(width =10,font=("MS Sans Serif",20),relief=RAISED,borderwidth=5)
     DeviceCanvas.create_window(800, 0, anchor=NW, window=button3)
     #------------------------------------------------------------------#
-    #List Devices, Should be able to add dynamically with  lD.insert(DeviceNr,"NameOfDevice") or something like that.
     button4 = Button(r, text = "Quit", anchor = W,bg="red",command=r.quit)
     button4.configure(width =10,font=("MS Sans Serif",20),relief=RAISED,borderwidth=5)
     DeviceCanvas.create_window(800, 550, anchor=NW, window=button4)
-
-
-
-
+    #------------------------------------------------------------------#
     global lD
     lD = Listbox(r)
-    lD.configure(width=15,height=10,font=("MS Sans Serif",15))
-    lD.place(relx=0.18,rely=0.60,anchor=CENTER)
-
-
+    lD.configure(width=14,height=10,font=("MS Sans Serif",15))
+    lD.place(relx=0.19,rely=0.60,anchor=CENTER)
     #------------------------------------------------------------------#
-    #When it adds device it will also insert the IP for the device, (lIP.insert(DeviceNr,"IP"))
     global lIP
     lIP = Listbox(r)
-
-    lIP.configure(width=45,height=10,font=("MS Sans Serif",15))
+    lIP.configure(width=38,height=10,font=("MS Sans Serif",15))
     lIP.place(relx=0.5,rely=0.60,anchor=CENTER)
     #------------------------------------------------------------------#
     global lStatus
