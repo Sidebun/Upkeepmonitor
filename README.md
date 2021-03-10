@@ -1,6 +1,13 @@
 # Upkeepmonitor (UBUNTU)
 Student project to monitor network downtime within a network.
 
+
+### Docker cannot be supported for this program
+This project was supposed to be run on Docker, but as docker couldnt access the network devices it was decided that docker cant be used. The docker container cannot access the network which makes the core functionality of the program useless as it could not scan any networks.
+
+### VM cannot be supported for this program
+The program can be run on a VM, however when running on a VM nmap will have an issue finding some hosts, therefore running this program on a VM is not encouraged at all.
+
 ## Programdescription
 This Upkeepmonitor will be scanning your local network and look for any new hosts and if any hosts have been disconnected that have been connected.
 It is writing to an sqlite3 database and will log the Hostname,IP,status (Reachable or not reachable),timestamp. It is also writing the same things to an csv file.
@@ -36,11 +43,7 @@ To reset the database and/or csv-file, simply remove the file from your director
 
 
 
-##### Docker cannot be supported for this program
-This project was supposed to be run on Docker, but as docker couldnt access the network devices it was decided that docker cant be used. The docker container cannot access the network which makes the core functionality of the program useless as it could not scan any networks.
 
-##### VM cannot be supported for this program
-The program can be run on a VM, however when running on a VM nmap will have an issue finding some hosts, therefore running this program on a VM is not encouraged at all.
 
 
 
