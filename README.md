@@ -15,8 +15,8 @@ It will prompt you for your network gateway when you start the program and it wi
 #### This project mainly runs on Ubuntu (confirmed to be working with Ubuntu20.04) however the python code in this repository will run on Windows aswell.
 
 ## Installation
-
-First install pip with : sudo apt update
+Install python with sudo apt-get install python3
+install pip with : sudo apt update
 			 sudo apt install python3-pip
 Make sure following packages are installed, if not install them in the terminal:
 python-nmap: pip3 install python-nmap
