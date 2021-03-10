@@ -44,9 +44,10 @@ To reset the database and/or csv-file, simply remove the file from your director
 
 
 
-
-
-
+### Tech stack
+* Python for everything.
+* Database is sqlite3 (Already built-in python)
+* GUI is Tkinter (Also built in Python versions after 3.8)
 
 
 
