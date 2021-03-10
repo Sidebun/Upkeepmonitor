@@ -23,7 +23,6 @@ def table_insert(hostname,ip,hoststatus):
 
     conn = create_connection("db.db")
     c = conn.cursor()
-    print(hostname,ip,date,status)
 #create table
     c.execute('''CREATE TABLE IF NOT EXISTS networklog
              (name text, ipaddress text, timestamp text, status text)''')

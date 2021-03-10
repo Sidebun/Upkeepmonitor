@@ -38,11 +38,9 @@ def connected():
     global onlinestatus
     try:
         subprocess.check_output(["ping", "-c", "1", "8.8.8.8"])
-        print("ONLINE")
         networkStatusBox(True)
         onlinestatus = True               
     except subprocess.CalledProcessError:
-        print("OFFLINE")
         networkStatusBox(False)
         onlinestatus = False
             
@@ -55,7 +53,6 @@ def networkscan():
     while True:
         sleep(5)
         connected()
-        print("SCANNING")
         network=networkGateway
         hostname = socket.gethostname()
         ownDeviceIP = socket.gethostbyname(hostname)
@@ -123,7 +120,6 @@ def checkifcolneeded():
     with open("UpkeepCSV.csv",'r') as read_obj:
             csv_reader = reader(read_obj)
             for row in csv_reader:
-                print(row)
                 if any ("Host" in row for row in csv_reader):
                     return False
                 else:
