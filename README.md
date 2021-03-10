@@ -1,7 +1,7 @@
 # Upkeepmonitor (UBUNTU)
 Student project to monitor network downtime within a network.
 
-## Programdescription:
+## Programdescription
 This Upkeepmonitor will be scanning your local network and look for any new hosts and if any hosts have been disconnected that have been connected.
 It is writing to an sqlite3 database and will log the Hostname,IP,status (Reachable or not reachable),timestamp. It is also writing the same things to an csv file.
 
@@ -14,7 +14,7 @@ It will prompt you for your network gateway when you start the program and it wi
 
 #### This project mainly runs on Ubuntu (confirmed to be working with Ubuntu20.04) however the python code in this repository will run on Windows aswell.
 
-## Installation:
+## Installation
 
 First install pip with : sudo apt update
 			 sudo apt install python3-pip
@@ -24,7 +24,7 @@ nmap: sudo apt-get install nmap
 Tkinter: sudo apt-get install python-tk
 getmac: pip install getmac
 
-### How to run it:
+### How to run it
 First make sure to have all the installed packages, those are listed above in the installation section.
 It can easily be run through the terminal:
 Right click the folder where the "Upkeepmonitoring" file is downloaded and choose "Open in Terminal"
