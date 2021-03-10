@@ -37,5 +37,3 @@ def table_insert(hostname,ip,hoststatus):
 #close the connection
     conn.close()
 
-########table_insert("XD","192.168.1.1")
-
