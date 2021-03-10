@@ -32,6 +32,8 @@ When in terminal type "sudo ./Upkeepmonitoring"
 
 This will open the prompt for your network gateway, as soon as you enter the gateway the main program will open and run.
 
+To reset the database and/or csv-file, simply remove the file from your directory and it will create a new file when running. 
+
 
 
 
